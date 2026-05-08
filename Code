@@ -1,0 +1,77 @@
+import pandas as pd
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import shap
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.preprocessing import LabelEncoder
+
+#Explainable Credit Risk Modeling with Bias Auditing
+
+from sklearn.linear_model import LogisticRegression
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, fl_score, confusion_matrix
+
+df= pd.read csv("german credit.csv")
+
+# Encode categorical columns
+
+le = LabelEncoder()
+
+for col in df.select_dtypes(include=['object']).columns:
+
+df[col] = le.fit_transform(df[col])
+
+X = df.drop("Risk", axis=1)
+
+y = df["Risk"]
+
+#Train test split
+
+X train, X test, y train, y test = train test split(X, y, test size-0.2)
+
+model LogisticRegression(max iter=1000)
+
+model.fit(X train, y train)
+
+# Predictions
+
+y_pred = model.predict(X_test)
+
+# Metrics
+
+= accuracy_score(y_test, y_pred)
+
+prec = precision_score(y_test, y_pred)
+
+rec = recall_score(y_test, y_pred)
+
+fl = fl score(y test, y pred)
+
+print(acc, prec, rec, f1)
+
+# Confusion matrix plot
+
+cm = confusion_matrix(y_test, y_pred)
+
+plt.imshow(cm)
+
+plt.title("Confusion Matrix")
+
+plt.colorbar()
+
+plt.show()
+
+#Explainable Credit Risk Modeling with Bias Auditing
+
+# SHAP explanation
+
+explainer = shap.LinearExplainer(model, X_train)
+
+shap_values explainer.shap_values(X_test)
+
+shap.summary_plot(shap_values, X test)
